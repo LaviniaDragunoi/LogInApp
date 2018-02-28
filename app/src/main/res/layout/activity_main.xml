@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="com.example.laurentiudragunoi.loginapp.MainActivity">
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/login_margin"
+        style="?android:attr/progressBarStyleInverse"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/login_margin">
+
+            <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+                android:fontFamily="sans-serif"
+                android:hint="@string/user"
+                android:maxLines="1"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/password"
+        android:fontFamily="sans-serif"
+        android:maxLines="1"
+        android:inputType="textPassword"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_in"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:layout_gravity="center"
+                android:shadowColor="@color/colorAccent"
+                android:onClick=""
+                android:layout_margin="@dimen/login_margin"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

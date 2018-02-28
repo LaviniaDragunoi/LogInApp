@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">LogInApp</string>
+    <string name="user">User name</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sing In</string>
+    <string name="log_out">Log Out</string>
+    <string name="create_list_mes">To create new entry, press + button</string>
+    <string name="save">Save</string>
+    <string name="delete_item">Delete</string>
+    <string name="name">Name</string>
+    <string name="account">Enter bank account</string>
+    <string name="amount">Enter the amount due</string>
+</resources>
