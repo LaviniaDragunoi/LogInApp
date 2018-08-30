@@ -9,7 +9,6 @@ This is working in progress so, the final version it will display a list of empl
 ![screenshot_20180829-234653](https://user-images.githubusercontent.com/36914492/44830195-3fdec200-ac29-11e8-9bc6-c46a3e2793e2.jpg)
 
 ## License
-This project was submited by Lavinia Dragunoi as a part of Udacity Android Basics Nanodegree.
 
 MIT License
 
