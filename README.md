@@ -12,7 +12,7 @@ This is working in progress so, the final version it will display a list of empl
 
 MIT License
 
-Copyright (c) 218 Lavinia Dragunoi
+Copyright (c) 2018 Lavinia Dragunoi
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
