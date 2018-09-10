@@ -6,6 +6,8 @@ package com.example.laurentiudragunoi.loginapp;
 
 public class Employee {
     private String name;
+    private String bankAccount;
+    private double amount;
 
     public String getName() {
         return name;
@@ -31,8 +33,7 @@ public class Employee {
         this.amount = amount;
     }
 
-    private String bankAccount;
-    private double amount;
+
 
     //empty constructor, don't delete it. Default constructor.
     public Employee(){

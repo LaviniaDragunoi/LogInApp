@@ -11,6 +11,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <EditText
+        android:id="@+id/employee_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
@@ -19,6 +20,7 @@
         android:fontFamily="sans-serif"
         android:inputType="textCapWords"/>
     <EditText
+        android:id="@+id/employee_bank_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
@@ -27,6 +29,7 @@
         android:fontFamily="sans-serif"
         android:inputType="textCapCharacters"/>
     <EditText
+        android:id="@+id/employee_salary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
