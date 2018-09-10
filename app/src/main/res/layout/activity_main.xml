@@ -42,6 +42,7 @@
         android:maxLines="1"
         android:inputType="textPassword"/>
             <Button
+                android:id="@+id/sign_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sign_in"
@@ -50,7 +51,6 @@
                 android:fontFamily="sans-serif"
                 android:layout_gravity="center"
                 android:shadowColor="@color/colorAccent"
-                android:onClick=""
                 android:layout_margin="@dimen/login_margin"/>
         </LinearLayout>
     </ScrollView>
