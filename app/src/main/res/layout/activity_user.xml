@@ -7,16 +7,18 @@
     android:layout_height="match_parent"
     android:layout_margin="@dimen/text_margin"
     tools:context="com.example.laurentiudragunoi.loginapp.UserActivity">
-   <ListView
+   <android.support.v7.widget.RecyclerView
        android:id="@+id/list"
        android:layout_width="match_parent"
        android:layout_height="match_parent"/>
 
     <LinearLayout
+        android:id="@+id/empty_message"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="invisible">
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"

@@ -1,5 +1,6 @@
 package com.example.laurentiudragunoi.loginapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +10,9 @@ import android.widget.EditText;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +34,8 @@ public class EditActivity extends AppCompatActivity {
     String employeeAccountString;
     double employeeSalaryAmount;
 
+    List<Employee> employeeList = new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,15 +56,18 @@ public class EditActivity extends AppCompatActivity {
 
     @Override
     public boolean  onOptionsItemSelected(MenuItem menuItem){
-        switch(menuItem.getItemId()){
-            case R.id.action_save:
+        int id = menuItem.getItemId();
+        if(id == R.id.action_save){
                 saveEmployeeInDb();
-                return true;
-            case R.id.action_delete:
-                //delete from DB
-                return true;
-            default:return super.onOptionsItemSelected(menuItem);
+            Intent intent = new Intent(this, UserActivity.class);
+            intent.putExtra("employeeList", new ArrayList<Employee>(employeeList));
+            startActivity(intent);
+                //finish();
+            }else if(id == R.id.action_delete){
+            //delete item
+            finish();
         }
+        return super.onOptionsItemSelected(menuItem);
     }
 
     private void saveEmployeeInDb() {
@@ -67,6 +76,7 @@ public class EditActivity extends AppCompatActivity {
         employeeSalaryAmount = valueOf(employeeSalary.getText().toString());
 
         Employee employeeEntry = new Employee(employeeNameString, employeeAccountString, employeeSalaryAmount);
+        employeeList.add(employeeEntry);
         mEmployeeDatabaseReference.push().setValue(employeeEntry);
     }
 }
