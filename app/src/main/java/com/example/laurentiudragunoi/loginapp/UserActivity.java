@@ -1,6 +1,8 @@
 package com.example.laurentiudragunoi.loginapp;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,8 +13,17 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +36,11 @@ public class UserActivity extends AppCompatActivity {
     EmployeeAdapter adapter;
     @BindView(R.id.empty_message)
     LinearLayout emptyMessage;
-    public List<Employee> employeeList = new ArrayList<>();
+    public List<Employee> employeeList;
+
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mEmployeeDatabaseReference;
+    private ChildEventListener mChildEventListener;
 
 
     @Override
@@ -41,16 +56,63 @@ public class UserActivity extends AppCompatActivity {
             }
         });
 
-        Intent intent = getIntent();
-
-            employeeList = intent.getParcelableArrayListExtra("employeeList");
-
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         listRV.setLayoutManager(layoutManager);
 
-            adapter = new EmployeeAdapter(this, employeeList);
-            listRV.setAdapter(adapter);
 
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mEmployeeDatabaseReference = mFirebaseDatabase.getReference().child("employee");
+
+        mChildEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                getEmployeeList(dataSnapshot);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
+       mEmployeeDatabaseReference.addValueEventListener(new ValueEventListener() {
+           @Override
+           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               getEmployeeList(dataSnapshot);
+           }
+
+           @Override
+           public void onCancelled(@NonNull DatabaseError databaseError) {
+
+           }
+       });
+
+    }
+
+    private void getEmployeeList(DataSnapshot dataSnapshot) {
+        employeeList = new ArrayList<>();
+        for(DataSnapshot singleDataSnapshot :  dataSnapshot.getChildren()){
+            Employee employee = singleDataSnapshot.getValue(Employee.class);
+
+                employeeList.add(employee);
+
+                listRV.setAdapter(new EmployeeAdapter(this, employeeList));
+        }
     }
 
     @Override

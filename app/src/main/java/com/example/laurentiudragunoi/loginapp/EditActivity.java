@@ -34,8 +34,6 @@ public class EditActivity extends AppCompatActivity {
     String employeeAccountString;
     double employeeSalaryAmount;
 
-    List<Employee> employeeList = new ArrayList<>();
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,10 +57,7 @@ public class EditActivity extends AppCompatActivity {
         int id = menuItem.getItemId();
         if(id == R.id.action_save){
                 saveEmployeeInDb();
-            Intent intent = new Intent(this, UserActivity.class);
-            intent.putExtra("employeeList", new ArrayList<Employee>(employeeList));
-            startActivity(intent);
-                //finish();
+                finish();
             }else if(id == R.id.action_delete){
             //delete item
             finish();
@@ -74,9 +69,8 @@ public class EditActivity extends AppCompatActivity {
         employeeNameString = employeeName.getText().toString();
         employeeAccountString = employeeBankAcount.getText().toString();
         employeeSalaryAmount = valueOf(employeeSalary.getText().toString());
-
         Employee employeeEntry = new Employee(employeeNameString, employeeAccountString, employeeSalaryAmount);
-        employeeList.add(employeeEntry);
         mEmployeeDatabaseReference.push().setValue(employeeEntry);
+
     }
 }
