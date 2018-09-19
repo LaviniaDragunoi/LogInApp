@@ -19,7 +19,7 @@ import static java.lang.String.valueOf;
 
 public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.EmployeeViewHolder>{
 
-    private static final String EMPLOYEE = "employee";
+    public static final String EMPLOYEE = "employee";
     private List<Employee> employeeList;
     private Context context;
 

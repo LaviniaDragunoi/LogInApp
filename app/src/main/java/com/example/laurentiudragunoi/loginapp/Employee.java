@@ -3,6 +3,11 @@ package com.example.laurentiudragunoi.loginapp;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Lavinia Dragunoi on 9/14/2017.
  */
@@ -78,4 +83,15 @@ public class Employee implements Parcelable {
         dest.writeString(bankAccount);
         dest.writeDouble(amount);
     }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("name", name);
+        result.put("bankAccount", bankAccount);
+        result.put("amount", amount);
+
+        return result;
+    }
+
 }

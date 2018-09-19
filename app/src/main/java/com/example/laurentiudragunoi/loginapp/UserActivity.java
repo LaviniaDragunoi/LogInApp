@@ -8,10 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -36,6 +38,8 @@ public class UserActivity extends AppCompatActivity {
     EmployeeAdapter adapter;
     @BindView(R.id.empty_message)
     LinearLayout emptyMessage;
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
     public List<Employee> employeeList;
 
     private FirebaseDatabase mFirebaseDatabase;
@@ -58,9 +62,7 @@ public class UserActivity extends AppCompatActivity {
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         listRV.setLayoutManager(layoutManager);
-
-
-
+        showLoading();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mEmployeeDatabaseReference = mFirebaseDatabase.getReference().child("employee");
 
@@ -72,22 +74,23 @@ public class UserActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                getEmployeeList(dataSnapshot);
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                getEmployeeList(dataSnapshot);
 
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                //empty
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.e("Error message:", databaseError.getMessage());
             }
         };
        mEmployeeDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -105,13 +108,26 @@ public class UserActivity extends AppCompatActivity {
     }
 
     private void getEmployeeList(DataSnapshot dataSnapshot) {
+
         employeeList = new ArrayList<>();
         for(DataSnapshot singleDataSnapshot :  dataSnapshot.getChildren()){
             Employee employee = singleDataSnapshot.getValue(Employee.class);
+            employeeList.add(employee);
+            listRV.setAdapter(new EmployeeAdapter(this, employeeList));
 
-                employeeList.add(employee);
+        }
+        showLoaded();
+        if(employeeList.isEmpty()){
+            showEmpty();
+        }else emptyMessage.setVisibility(View.GONE);
+    }
 
-                listRV.setAdapter(new EmployeeAdapter(this, employeeList));
+    private void showEmpty() {
+        if(employeeList.isEmpty()){
+        progressBar.setVisibility(View.GONE);
+        emptyMessage.setVisibility(View.VISIBLE);
+        }else {
+            emptyMessage.setVisibility(View.GONE);
         }
     }
 
@@ -122,4 +138,12 @@ public class UserActivity extends AppCompatActivity {
         return true;
     }
 
+    private void showLoading(){
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void showLoaded(){
+        progressBar.setVisibility(View.GONE);
+        listRV.setVisibility(View.VISIBLE);
+    }
 }
