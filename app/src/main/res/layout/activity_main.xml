@@ -9,49 +9,16 @@
     android:orientation="vertical"
     tools:context="com.example.laurentiudragunoi.loginapp.MainActivity">
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/login_margin"
-        android:visibility="invisible"
-        style="?android:attr/progressBarStyleInverse"/>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="@dimen/login_margin">
-
-            <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-                android:fontFamily="sans-serif"
-                android:hint="@string/user"
-                android:maxLines="1"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/password"
-        android:fontFamily="sans-serif"
-        android:maxLines="1"
-        android:inputType="textPassword"/>
-            <Button
-                android:id="@+id/sign_in"
+               <Button
+                android:id="@+id/browse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sign_in"
+                android:text="@string/browse_employee"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold"
                 android:fontFamily="sans-serif"
                 android:layout_gravity="center"
                 android:shadowColor="@color/colorAccent"
                 android:layout_margin="@dimen/login_margin"/>
-        </LinearLayout>
-    </ScrollView>
+
 </LinearLayout>
