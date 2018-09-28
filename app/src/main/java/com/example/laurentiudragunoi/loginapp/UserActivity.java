@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,6 +31,8 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.example.laurentiudragunoi.loginapp.MainActivity.USER_NAME;
 
 public class UserActivity extends AppCompatActivity {
     @BindView(R.id.fab_new_entry_added)
@@ -45,17 +49,21 @@ public class UserActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mEmployeeDatabaseReference;
     private ChildEventListener mChildEventListener;
+    private String userName;
+    private FirebaseAuth firebaseAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        ButterKnife.bind(this);
+        ButterKnife.bind(this); 
+
         addEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UserActivity.this, EditActivity.class);
+                intent.putExtra(USER_NAME, userName);
                 startActivity(intent);
             }
         });
@@ -65,7 +73,10 @@ public class UserActivity extends AppCompatActivity {
         showLoading();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mEmployeeDatabaseReference = mFirebaseDatabase.getReference().child("employee");
-
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        userName = user.getDisplayName();
+        setTitle(userName);
         mChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -131,12 +142,7 @@ public class UserActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.user_menu, menu);
-        return true;
-    }
+
 
     private void showLoading(){
         progressBar.setVisibility(View.VISIBLE);

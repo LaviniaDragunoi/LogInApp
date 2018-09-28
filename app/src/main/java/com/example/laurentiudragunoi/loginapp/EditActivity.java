@@ -26,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.laurentiudragunoi.loginapp.EmployeeAdapter.EMPLOYEE;
+import static com.example.laurentiudragunoi.loginapp.MainActivity.USER_NAME;
 import static java.lang.Double.valueOf;
 
 public class EditActivity extends AppCompatActivity {
@@ -45,6 +46,7 @@ public class EditActivity extends AppCompatActivity {
     double employeeSalaryAmount;
     private Employee currentEmployee;
     EmployeeAdapter adapter;
+    private String userName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,14 @@ public class EditActivity extends AppCompatActivity {
             employeeBankAcount.setText(currentEmployee.getBankAccount());
             double salaryAmount = currentEmployee.getAmount();
             employeeSalary.setText(String.valueOf(salaryAmount));
+            userName = currentEmployee.getUserName();
+
+        }else if(intent != null && intent.hasExtra(USER_NAME)){
+            userName = intent.getStringExtra(USER_NAME);
+        }
+        if(currentEmployee == null){
+            setTitle(getString(R.string.add_title));
+        }else {  setTitle(getString(R.string.edit_title));
         }
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mEmployeeDatabaseReference = mFirebaseDatabase.getReference().child("employee");
@@ -116,7 +126,7 @@ public class EditActivity extends AppCompatActivity {
         employeeAccountString = this.employeeBankAcount.getText().toString();
         employeeSalaryAmount = valueOf(this.employeeSalary.getText().toString());
 
-        Employee employeeEntry = new Employee(employeeNameString,employeeAccountString,employeeSalaryAmount);
+        Employee employeeEntry = new Employee(userName,employeeNameString,employeeAccountString,employeeSalaryAmount);
         mEmployeeDatabaseReference.push().setValue(employeeEntry);
         }
 

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -22,6 +24,8 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     public static final String ANONYMOUS = "anonymous";
+    public static final String USER_NAME = "userName";
+    String userName;
     private static final int RC_SIGN_IN = 2;
     @BindView(R.id.browse)
     Button browseFurtherActivity;
@@ -37,23 +41,17 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
-        browseFurtherActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, UserActivity.class);
-                startActivity(intent);
-            }
-        });
+
      mAuthStateListener = new FirebaseAuth.AuthStateListener() {
          @Override
          public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
              FirebaseUser user = firebaseAuth.getCurrentUser();
              if(user != null){
                  //user is signed in
-                 Toast.makeText(MainActivity.this,"You're now signed in.Welcome to my LogIn APP!",Toast.LENGTH_LONG).show();
-
+                 onSignedInInitialize(user.getDisplayName());
              }else {
                  //user is signed out
+                 onSignedOutInitialize();
                  // Choose authentication providers
                  List<AuthUI.IdpConfig> providers = Arrays.asList(
                          new AuthUI.IdpConfig.EmailBuilder().build(),
@@ -74,6 +72,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    private void onSignedInInitialize(String displayName) {
+        userName = displayName;
+        setTitle(userName);
+        browseFurtherActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, UserActivity.class);
+                intent.putExtra(USER_NAME, userName);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void onSignedOutInitialize() {
+
+    }
     @Override
     protected void onPause() {
         super.onPause();
@@ -86,4 +101,10 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.user_menu, menu);
+        return true;
+    }
 }
