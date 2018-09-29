@@ -5,7 +5,7 @@ The app is created to learn and test Firebase Authentication and Database storag
 This is working in progress so, the final version it will display a list of employees for each user account.
 
 ## Screenshots
-![screenshot_20180910-124915](https://user-images.githubusercontent.com/36914492/45292603-5e349f80-b4fe-11e8-95de-45a7dec42213.jpg)
+![screenshot_20180929-070529](https://user-images.githubusercontent.com/36914492/46240869-b0a70480-c3b6-11e8-8362-4f8998327147.jpg)
 ![screenshot_20180910-124923](https://user-images.githubusercontent.com/36914492/45292604-5e349f80-b4fe-11e8-872a-b77653559c70.jpg)
 ![screenshot_20180910-124933](https://user-images.githubusercontent.com/36914492/45292605-5e349f80-b4fe-11e8-88c7-84ba5cf3b9d8.jpg)
 ## Libraries
