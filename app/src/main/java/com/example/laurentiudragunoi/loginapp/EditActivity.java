@@ -32,6 +32,7 @@ import static java.lang.Double.valueOf;
 public class EditActivity extends AppCompatActivity {
 
     private static final String TAG = EditActivity.class.getSimpleName();
+  //  private static final String HIDE_STATE = "hideDeleteOptionMenu";
     FirebaseDatabase mFirebaseDatabase;
     DatabaseReference mEmployeeDatabaseReference;
     @BindView(R.id.employee_name)
@@ -47,6 +48,7 @@ public class EditActivity extends AppCompatActivity {
     private Employee currentEmployee;
     EmployeeAdapter adapter;
     private String userName;
+   // private String mState;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class EditActivity extends AppCompatActivity {
         }
         if(currentEmployee == null){
             setTitle(getString(R.string.add_title));
+
         }else {  setTitle(getString(R.string.edit_title));
         }
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -78,6 +81,10 @@ public class EditActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.edit_menu, menu);
+        MenuItem deleteItem = menu.findItem(R.id.action_delete);
+        if(currentEmployee != null) {
+            deleteItem.setVisible(true);
+        }
         return true;
     }
 

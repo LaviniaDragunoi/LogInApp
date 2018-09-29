@@ -3,7 +3,7 @@
     <string name="user">User name</string>
     <string name="password">Password</string>
     <string name="browse_employee">Browse employees</string>
-    <string name="log_out">Log Out</string>
+    <string name="sign_out">Sign Out</string>
     <string name="create_list_mes">To create new entry, press + button</string>
     <string name="save">Save</string>
     <string name="delete_item">Delete</string>

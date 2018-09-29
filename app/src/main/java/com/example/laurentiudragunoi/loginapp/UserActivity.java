@@ -77,44 +77,7 @@ public class UserActivity extends AppCompatActivity {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         userName = user.getDisplayName();
         setTitle(userName);
-        mChildEventListener = new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                getEmployeeList(dataSnapshot);
-            }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                getEmployeeList(dataSnapshot);
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                getEmployeeList(dataSnapshot);
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                //empty
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("Error message:", databaseError.getMessage());
-            }
-        };
-       mEmployeeDatabaseReference.addValueEventListener(new ValueEventListener() {
-           @Override
-           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               getEmployeeList(dataSnapshot);
-           }
-
-           @Override
-           public void onCancelled(@NonNull DatabaseError databaseError) {
-
-           }
-       });
 
     }
 
@@ -151,5 +114,68 @@ public class UserActivity extends AppCompatActivity {
     private void showLoaded(){
         progressBar.setVisibility(View.GONE);
         listRV.setVisibility(View.VISIBLE);
+    }
+    private void attachDatabaseReadListener(){
+if(mChildEventListener == null) {
+    mChildEventListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            getEmployeeList(dataSnapshot);
+        }
+
+        @Override
+        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            getEmployeeList(dataSnapshot);
+        }
+
+        @Override
+        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+            getEmployeeList(dataSnapshot);
+
+        }
+
+        @Override
+        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            //empty
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+            Log.e("Error message:", databaseError.getMessage());
+        }
+    };
+
+
+    mEmployeeDatabaseReference.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            getEmployeeList(dataSnapshot);
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    });
+}
+    }
+
+    private void detachDatabaseReadListener(){
+        if(mChildEventListener != null){
+            mEmployeeDatabaseReference.removeEventListener(mChildEventListener);
+            mChildEventListener = null;
+        }
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        attachDatabaseReadListener();
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        detachDatabaseReadListener();
     }
 }
