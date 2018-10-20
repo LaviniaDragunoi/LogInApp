@@ -7,7 +7,8 @@ This is working in progress so, the final version it will display a list of empl
 ## Screenshots
 ![screenshot_20180929-070529](https://user-images.githubusercontent.com/36914492/46240869-b0a70480-c3b6-11e8-8362-4f8998327147.jpg)
 ![screenshot_20180910-124923](https://user-images.githubusercontent.com/36914492/45292604-5e349f80-b4fe-11e8-872a-b77653559c70.jpg)
-![screenshot_20180910-124933](https://user-images.githubusercontent.com/36914492/45292605-5e349f80-b4fe-11e8-88c7-84ba5cf3b9d8.jpg)
+![screenshot_20181019-203444](https://user-images.githubusercontent.com/36914492/47251242-791dfc00-d43a-11e8-9b85-044dd7fca198.jpg)
+![screenshot_20181019-203438](https://user-images.githubusercontent.com/36914492/47251243-79b69280-d43a-11e8-9a11-9e2956691aa4.jpg)
 ## Libraries
 * [Butterknife](https://github.com/JakeWharton/butterknife)
 * [Firebase SDK](https://firebase.google.com/docs/android/setup)
